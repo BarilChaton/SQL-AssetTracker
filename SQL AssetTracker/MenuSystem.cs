@@ -9,6 +9,12 @@ namespace SQL_AssetTracker
         private string[] Options;
         private string Prompt;
 
+        public MenuSystem(string prompt, string[] options)
+        {
+            Prompt = prompt;
+            Options = options;
+        }
+
         public MenuSystem(int selectedIndex, string[] options, string prompt)
         {
             SelectedIndex = 0;
