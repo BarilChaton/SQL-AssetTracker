@@ -37,13 +37,46 @@ namespace SQL_AssetTracker
             string connectionString;
             SqlConnection cnn;
 
-            connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=AssetTracker;Trusted_Connection=True;";
+            connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=AssetTracker;Trusted_Connection=True;"; // Change Server= on other computers. Dont forget to create the database.
             cnn = new SqlConnection(connectionString);
-            cnn.Open();
+            
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Clear();
             Console.WriteLine("Connected to SQL Server.");
             Console.ResetColor();
+
+            //Attempt to create a database..
+            string query;
+            query = "CREATE DATABASE AssetTracking ON PRIMARY " +
+                    "(NAME = AssetTracking_Data, " +
+                    "FILENAME = 'C:\\Users\\Elev\\Desktop\\AssetTrackingDBData.mdf', " +
+                    "SIZE = 2MB, MAXSIZE = 10MB, FILEGROWTH = 10%)" +
+                    "LOG ON (NAME = AssetTrackingDB_Log, " +
+                    "FILENAME = 'C:\\Users\\Elev\\Desktop\\AssetTrackingDBLog.ldf', " +
+                    "SIZE = 1MB, " +
+                    "MAXSIZE = 5MB, " +
+                    "FILEGROWTH = 10%)";
+            SqlCommand sqlCommand = new SqlCommand(query, cnn);
+            try
+            {
+                cnn.Open();
+                sqlCommand.ExecuteNonQuery();
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Connected to SQL Server. And created database.");
+                Console.ResetColor();
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                if (cnn.State == System.Data.ConnectionState.Open)
+                {
+                    cnn.Close();
+                }
+            }
             Console.WriteLine("Press any key to continue.");
             Console.ReadLine();
 
