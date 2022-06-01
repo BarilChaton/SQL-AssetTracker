@@ -21,7 +21,7 @@ namespace SQL_AssetTracker
         static void Main(string[] args)
         {
             // Apply Fullscreen.
-            Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+            Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight); // This line works ONLY for Windows OS.
             ShowWindow(ThisConsole, MAXIMIZE);
 
             //Run AppLogic class and method here...
