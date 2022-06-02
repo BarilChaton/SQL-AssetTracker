@@ -1,5 +1,4 @@
-﻿using System;
-using static System.Console;
+﻿using static System.Console;
 
 namespace SQL_AssetTracker
 {
@@ -41,7 +40,7 @@ namespace SQL_AssetTracker
                 else
                 {
                     prefix = " ";
-                    ForegroundColor= ConsoleColor.White;
+                    ForegroundColor = ConsoleColor.White;
                     BackgroundColor = ConsoleColor.Black;
                 }
 

@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SQL_AssetTracker
+﻿namespace SQL_AssetTracker
 {
-    internal class AppLogic
+    class AppLogic
     {
-        static List<AssetConstructor> assets = new List<AssetConstructor>();
+        // This class contains all the workings of the asset tracking program.
+        // My solution to it was to set it up by using 4 methods one of which is called from a diffirent class,
+        // And the others in a switch statement. Essential lists, items and variables are declared as early as possible in the class.
+        // Because I find it more managable to read and edit it if needed.
+        // Everything is being stored and loaded from an SQL database that has to be setup by the user here before using the program.
+        // See the Readme.md about setting up for proper database and local SQL connection. 
+
 
         // Variables... Variables everywhere...
 
@@ -35,7 +35,7 @@ namespace SQL_AssetTracker
         static string asus = "Asus";
 
         // Phone brands
-        static string iphone = "Apple";
+        static string applePhone = "Apple";
         static string samsung = "Samsung";
         static string xiaomi = "Xiaomi";
 
@@ -92,10 +92,10 @@ namespace SQL_AssetTracker
                     AddAsset();
                     break;
                 case 1:
-                    //ShowList();
+                    ShowList();
                     break;
                 case 2:
-                    //About();
+                    About();
                     break;
                 case 3:
                     Environment.Exit(0);
@@ -109,7 +109,7 @@ namespace SQL_AssetTracker
             while (true)
             {
                 // Create the asset object
-                AssetConstructor asset = new AssetConstructor();
+                AssetTracking asset = new AssetTracking();
                 //asset.Type = pC;
 
                 //------------------------------------------------------------------
@@ -191,12 +191,15 @@ namespace SQL_AssetTracker
                         // I <3 Switch :D
                         case 0:
                             asset.Brand = apple;
+                            asset.PhoneModel = "N/A";
                             break;
                         case 1:
                             asset.Brand = lenovo;
+                            asset.PhoneModel = "N/A";
                             break;
                         case 2:
                             asset.Brand = asus;
+                            asset.PhoneModel = "N/A";
                             break;
                     }
                 }
@@ -210,13 +213,16 @@ namespace SQL_AssetTracker
                     {
                         // I <3 Switch :D
                         case 0:
-                            asset.Brand = apple;
+                            asset.Brand = applePhone;
+                            asset.LaptopModel = "N/A";
                             break;
                         case 1:
                             asset.Brand = samsung;
+                            asset.LaptopModel = "N/A";
                             break;
                         case 2:
                             asset.Brand = xiaomi;
+                            asset.LaptopModel = "N/A";
                             break;
                     }
                 }
@@ -286,7 +292,7 @@ namespace SQL_AssetTracker
                 }
                 else if (asset.Type == mobilePhone)
                 {
-                    if (asset.Brand == apple)
+                    if (asset.Brand == applePhone)
                     {
                         string promptModel = @"Select the model of the phone asset.";
                         string[] optionsModel = { IPhone1, IPhone2, IPhone3 };
@@ -405,7 +411,9 @@ namespace SQL_AssetTracker
 
                 //------------------------------------------------------------------
                 // Put the object into the list.
-                assets.Add(asset);
+
+                App.Context.Assets.Add(asset);
+                App.Context.SaveChanges();
 
                 // Ask user if user wish to add another asset.
                 Console.WriteLine("Do you wish to add another computer asset? Y/N");
@@ -454,9 +462,9 @@ namespace SQL_AssetTracker
             Console.WriteLine();
 
             // This sorts it first by office then by purchase date.
-            assets = assets.OrderBy(asset => asset.Office).ThenBy(asset => asset.PurchaseDate).ToList();
+            App.assets = App.assets.OrderBy(asset => asset.Office).ThenBy(asset => asset.PurchaseDate).ToList();
 
-            foreach (AssetConstructor asset in assets)
+            foreach (AssetTracking asset in App.assets)
             {
                 //Check the date of purchase and color the element in list accordingly.
                 if (asset.PurchaseDate < DateTime.Parse("2019-01-01") && asset.PurchaseDate > DateTime.Parse("2016-01-01"))

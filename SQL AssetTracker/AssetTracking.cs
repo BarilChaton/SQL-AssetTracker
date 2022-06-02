@@ -1,12 +1,12 @@
 ﻿namespace SQL_AssetTracker
 {
-    public class AssetConstructor
+    public class AssetTracking
     {
-        public AssetConstructor()
+        public AssetTracking()
         {
         }
 
-        public AssetConstructor(int id,
+        public AssetTracking(int Id,
                                 string office,
                                 string brand,
                                 DateTime purchaseDate,
@@ -17,7 +17,7 @@
                                 string type,
                                 double localPrice)
         {
-            Id = id;
+            ID = Id;
             Office = office;
             Brand = brand;
             PurchaseDate = purchaseDate;
@@ -29,7 +29,8 @@
             LocalPrice = localPrice;
         }
 
-        public int Id { get; set; }
+
+        public int ID { get; set; }
         public string Office { get; set; }
         public string Brand { get; set; }
         public DateTime PurchaseDate { get; set; }
@@ -39,9 +40,5 @@
         public string PhoneModel { get; set; }
         public string Type { get; set; }
         public double LocalPrice { get; set; }
-
-
-
-
     }
 }
