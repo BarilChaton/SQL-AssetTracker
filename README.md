@@ -11,4 +11,7 @@ Other notifications:
 As with KWAB - Asset tracker this program uses a userfriendly arrow controlled menu.
 Select by pressing enter.
 
+For images please see KWAB - Asset Tracker: https://github.com/BarilChaton/KWAB_AssetTracker
+Everything looks just the same.
+
 If there are questions you can contact me at: kodman91@gmail.com
